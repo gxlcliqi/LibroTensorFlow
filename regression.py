@@ -1,8 +1,8 @@
 import numpy as np
 
-num_puntos = 100
+num_puntos = 5
 conjunto_puntos = []
-for i in xrange(num_puntos):
+for i in range(num_puntos):
 	x1= np.random.normal(0.0, 0.9)
 	y1= x1 * 0.1 + 0.3 + np.random.normal(0.0, 0.05)
 	conjunto_puntos.append([x1, y1])
@@ -34,12 +34,18 @@ init = tf.initialize_all_variables()
 sess = tf.Session()
 sess.run(init)
 
-for step in xrange(101):
+for step in range(50):
     sess.run(train)
-    if step % 10 == 0:
-        print(step, sess.run(W), sess.run(b))
+    if step % 5 == 0:
+        print(step, sess.run(W), sess.run(b), sess.run(loss))
 
 plt.plot(x_data, y_data, 'ro')
 plt.plot(x_data, sess.run(W) * x_data + sess.run(b))
 plt.legend()
 plt.show()
+
+print(conjunto_puntos)
+vectors = tf.constant(conjunto_puntos)
+extended_vectors = tf.expand_dims(vectors, 0)
+print(extended_vectors.get_shape())
+print(conjunto_puntos)
